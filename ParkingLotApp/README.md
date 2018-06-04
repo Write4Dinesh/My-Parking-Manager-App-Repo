@@ -9,4 +9,4 @@ This is a sample Android application based on the Tic-Tac-Toe game which can be 
 - [Junit](https://developer.android.com/training/testing/unit-testing/local-unit-tests.html)
 
 ## Screenshots
-![alt text](https://github.com/Husaynhakeem/TicTacToe-MVVM/blob/master/app/screenshots/parked.png)
+![alt text](https://github.com/Write4Dinesh/ParkingLotAppRepo/blob/dev/ParkingLotApp/app/screenshots/parked.png)
