@@ -45,6 +45,7 @@ public class ParkingAdapter extends RecyclerView.Adapter<ParkingAdapter.ParkingS
                ViewDataBinding binding = holder.getBinding();
 
         final ParkingSpace space = mParkingSystem.getTotalSpaces().get(position);
+        space.setCurrentPosition(position);
         SpaceItemViewModel spaceItemViewModel = new SpaceItemViewModel();
         spaceItemViewModel.setParkingSpace(space);
         binding.setVariable(BR.spaceItemViewModel, spaceItemViewModel);

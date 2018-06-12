@@ -18,12 +18,21 @@
         android:layout_margin="5dp"
         android:background="@drawable/un_parked"
         android:onClick="@{()->spaceItemViewModel.onClick()}"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{parkingSpace.currentPosition}"
+            android:layout_weight="1"
+            android:layout_gravity="left"/>
         <ImageView
             android:id="@+id/image_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:scaleType="center"
+            android:layout_weight="1"
+            android:layout_gravity="right"
             android:src="@drawable/parked"
             android:visibility="@{parkingSpace.isEmpty?View.GONE:View.VISIBLE}" />
     </LinearLayout>
