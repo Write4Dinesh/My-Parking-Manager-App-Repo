@@ -1,8 +1,14 @@
 package com.shrinvi.parkingapp.model;
 
-public class ParkingSpace {
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+
+public class ParkingSpace extends BaseObservable {
     private int mId;
     private Vehicle mVehicle;
+    private int mCurrentPosition;
+    @Bindable
+    private boolean isEmpty;
 
     public ParkingSpace(int id) {
         mId = id;
@@ -12,17 +18,32 @@ public class ParkingSpace {
     public boolean park(Vehicle vehicle) {
         if (vehicle != null) {
             mVehicle = vehicle;
+            setIsEmpty(false);
             return true;
         }
         return false;
     }
 
-    public void unPark() {
-        mVehicle = null;
+    public boolean getIsEmpty() {
+        return isEmpty;
     }
 
-    public boolean isEmpty() {
-        return mVehicle == null;
+    public void setIsEmpty(boolean isEmpty) {
+        this.isEmpty = isEmpty;
+        notifyPropertyChanged(1);
+    }
+
+    public int getCurrentPosition() {
+        return mCurrentPosition;
+    }
+
+    public void setCurrentPosition(int position) {
+        mCurrentPosition = position;
+    }
+
+    public void unPark() {
+        mVehicle = null;
+        setIsEmpty(true);
     }
 
     public Vehicle getVehicle() {

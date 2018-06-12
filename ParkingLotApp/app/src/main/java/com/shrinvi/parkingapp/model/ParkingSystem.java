@@ -1,5 +1,7 @@
 package com.shrinvi.parkingapp.model;
 
+import com.shrinvi.parkingapp.ui.MainActivity;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,8 +13,9 @@ public class ParkingSystem {
     private List<ParkingSpace> mTotalSpaces;
     private Map<Vehicle, ParkingSpace> mParkedSpaceMap;
     private int mParkingLotCapacity;
+    private static ParkingSystem sInstance;
 
-    public ParkingSystem(int capacity) {
+    private ParkingSystem(int capacity) {
         mParkingLotCapacity = capacity;
         mFreeSpaces = new ArrayList<>(mParkingLotCapacity);
         mTotalSpaces = new ArrayList<>(mParkingLotCapacity);
@@ -25,24 +28,30 @@ public class ParkingSystem {
         }
     }
 
-    public boolean park(String regNo,int spaceIndex) {
-        if (!isRegiNoValid(regNo)) {
+    public synchronized static ParkingSystem getInstance() {
+
+        if (sInstance == null) {
+            sInstance = new ParkingSystem(MainActivity.PARKING_CAPACITY);
+        }
+        return sInstance;
+    }
+
+    public boolean park(Vehicle vehicle, int spaceIndex) {
+        if (vehicle != null) {
             System.out.println(LOG_TAG + "invalid regi.no");
             return false;
         }
         ParkingSpace space = mTotalSpaces.get(spaceIndex);
-        if (!space.isEmpty()) {
+        if (!space.getIsEmpty()) {
             System.out.println(LOG_TAG + "No space available");
             return false;
         }
-        Vehicle vehicle = new Vehicle(regNo);
         space.park(vehicle);
         //mParkedSpaceMap.put(vehicle, space);
         return true;
     }
 
-    public void unPark(String regiNo,int spaceIndex) {
-        Vehicle vehicle = new Vehicle(regiNo);
+    public void unPark(Vehicle vehicle, int spaceIndex) {
         //ParkingSpace space = mParkedSpaceMap.remove(vehicle);
         ParkingSpace space = mTotalSpaces.get(spaceIndex);
         if (space != null) {

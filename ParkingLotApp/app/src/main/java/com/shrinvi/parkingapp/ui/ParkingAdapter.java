@@ -1,51 +1,54 @@
 package com.shrinvi.parkingapp.ui;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.shrinvi.parkingapp.BR;
 import com.shrinvi.parkingapp.R;
 import com.shrinvi.parkingapp.model.ParkingSpace;
 import com.shrinvi.parkingapp.model.ParkingSystem;
+import com.shrinvi.parkingapp.model.Vehicle;
+import com.shrinvi.parkingapp.viewmodel.SpaceItemViewModel;
 
 import static com.shrinvi.parkingapp.ui.MainActivity.PARKING_CAPACITY;
 
-public class ParkingAdapter extends RecyclerView.Adapter {
+public class ParkingAdapter extends RecyclerView.Adapter<ParkingAdapter.ParkingSpaceHolder> {
     private ParkingSystem mParkingSystem;
     private Context mContext;
 
-    public  ParkingAdapter(Context context, ParkingSystem parkingSystem) {
+    public ParkingAdapter(Context context, ParkingSystem parkingSystem) {
         mParkingSystem = parkingSystem;
         mContext = context;
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(mContext).inflate(R.layout.grid_item_template, null, false);
-        MyHolder viewHolder = new MyHolder(itemView);
-        return viewHolder;
+    public ParkingSpaceHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        LayoutInflater layoutInflater =
+                LayoutInflater.from(parent.getContext());
+        ViewDataBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.grid_item_template, parent, false);
+        return new ParkingSpaceHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        MyHolder myHolder = (MyHolder) holder;
-        final ParkingSpace space = mParkingSystem.getTotalSpaces().get(position);
-        myHolder.mImageView.setVisibility(space.isEmpty() ? View.INVISIBLE : View.VISIBLE);
-        View.OnClickListener listener = (view) -> {
-            if (space.isEmpty()) {
-                mParkingSystem.park("234", position);
-                myHolder.mImageView.setVisibility(View.VISIBLE);
-            } else {
-                mParkingSystem.unPark("234", position);
-                myHolder.mImageView.setVisibility(View.INVISIBLE);
-            }
+    public int getItemViewType(int position) {
+        return R.layout.grid_item_template;
+    }
 
-        };
-        myHolder.itemView.setOnClickListener(listener);
-        myHolder.mImageView.setOnClickListener(listener);
+    @Override
+    public void onBindViewHolder(ParkingSpaceHolder holder, int position) {
+               ViewDataBinding binding = holder.getBinding();
+
+        final ParkingSpace space = mParkingSystem.getTotalSpaces().get(position);
+        SpaceItemViewModel spaceItemViewModel = new SpaceItemViewModel();
+        spaceItemViewModel.setParkingSpace(space);
+        binding.setVariable(BR.spaceItemViewModel, spaceItemViewModel);
+        binding.setVariable(BR.parkingSpace, space);
     }
 
     @Override
@@ -53,12 +56,18 @@ public class ParkingAdapter extends RecyclerView.Adapter {
         return PARKING_CAPACITY;
     }
 
-    class MyHolder extends RecyclerView.ViewHolder {
+    class ParkingSpaceHolder extends RecyclerView.ViewHolder {
+        private final ViewDataBinding mBinding;
         public ImageView mImageView;
 
-        public MyHolder(View view) {
-            super(view);
-            mImageView = view.findViewById(R.id.image_view);
+        public ParkingSpaceHolder(ViewDataBinding viewDataBinding) {
+            super(viewDataBinding.getRoot());
+            this.mBinding = viewDataBinding;
+            mImageView = mBinding.getRoot().findViewById(R.id.image_view);
+        }
+
+        public ViewDataBinding getBinding() {
+            return mBinding;
         }
     }
 }

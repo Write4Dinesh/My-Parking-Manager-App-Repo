@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initModel() {
-        mParkingSystem = new ParkingSystem(PARKING_CAPACITY);
+        mParkingSystem = ParkingSystem.getInstance();
     }
 
 
