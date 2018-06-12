@@ -16,6 +16,7 @@ public class ParkingSpace extends BaseObservable {
     public ParkingSpace(int id) {
         mId = id;
         mVehicle = null;
+        setIsEmpty(true);
     }
 
     public boolean park(Vehicle vehicle) {
