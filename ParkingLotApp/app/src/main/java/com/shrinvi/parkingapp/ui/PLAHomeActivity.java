@@ -11,7 +11,7 @@ import com.shrinvi.parkingapp.R;
 import com.shrinvi.parkingapp.model.ParkingSystem;
 
 
-public class MainActivity extends AppCompatActivity {
+public class PLAHomeActivity extends AppCompatActivity {
     public static final int PARKING_CAPACITY = 100;
     public static final int COLUMN_COUNT = 5;
     private ParkingSystem mParkingSystem;

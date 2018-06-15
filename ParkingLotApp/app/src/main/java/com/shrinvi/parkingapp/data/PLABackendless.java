@@ -9,7 +9,7 @@ import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.DataQueryBuilder;
 import com.shrinvi.parkingapp.data.network.PLAResponse;
 import com.shrinvi.parkingapp.model.ParkingSpace;
-import com.shrinvi.parkingapp.ui.MainActivity;
+import com.shrinvi.parkingapp.ui.PLAHomeActivity;
 import com.shrinvi.parkingapp.utility.DBConstants;
 
 import java.util.ArrayList;
@@ -70,7 +70,7 @@ public class PLABackendless {
         //queryOptions.
         // set query options into data query
         dataQuery.setSortBy(sortBy);
-        dataQuery.setPageSize(MainActivity.PARKING_CAPACITY);
+        dataQuery.setPageSize(PLAHomeActivity.PARKING_CAPACITY);
 
         parkingSpaceTable.find(dataQuery, new AsyncCallback<List<Map>>() {
             @Override
@@ -145,7 +145,7 @@ public class PLABackendless {
 
             @Override
             public void handleFault(BackendlessFault fault) {
-                //MainActivity.this.handleFault(fault);
+                //PLAHomeActivity.this.handleFault(fault);
             }
         });
     }

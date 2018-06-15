@@ -3,7 +3,7 @@ package com.shrinvi.parkingapp.model;
 import android.content.Context;
 
 import com.shrinvi.parkingapp.data.PLABackendless;
-import com.shrinvi.parkingapp.ui.MainActivity;
+import com.shrinvi.parkingapp.ui.PLAHomeActivity;
 import com.shrinvi.parkingapp.utility.PLALogger;
 
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class ParkingSystem {
     public synchronized static ParkingSystem getInstance(Context context) {
 
         if (sInstance == null) {
-            sInstance = new ParkingSystem(MainActivity.PARKING_CAPACITY, context);
+            sInstance = new ParkingSystem(PLAHomeActivity.PARKING_CAPACITY, context);
         }
         return sInstance;
     }
