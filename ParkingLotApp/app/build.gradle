@@ -54,5 +54,13 @@ dependencies {
     androidTestImplementation(testingDependencies.barista) {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
-    /*implementation project(':lib')*/
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation group: 'com.backendless', name: 'backendless', version: '5.0.0'
+    implementation(group: 'io.socket', name: 'socket.io-client', version: '1.0.0') {
+        //      excluding org.json which is provided by Android
+        implementation('io.socket:socket.io-client:1.0.0') {
+//       excluding org.json which is provided by Android
+            exclude group: 'org.json', module: 'json'
+        }
+    }
 }

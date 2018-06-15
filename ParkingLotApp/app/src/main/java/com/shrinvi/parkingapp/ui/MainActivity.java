@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.backendless.Backendless;
+import com.shrinvi.parkingapp.Defaults;
 import com.shrinvi.parkingapp.R;
 import com.shrinvi.parkingapp.model.ParkingSystem;
 
@@ -19,8 +21,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Backendless.setUrl(Defaults.SERVER_URL);
+        Backendless.initApp(getApplicationContext(), Defaults.APPLICATION_ID, Defaults.API_KEY);
         initModel();
         initView();
+
+    }
+
+    private void initModel() {
+        mParkingSystem = ParkingSystem.getInstance(this);
     }
 
     private void initView() {
@@ -28,11 +37,5 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, COLUMN_COUNT));
         mRecyclerView.setAdapter(new ParkingAdapter(this, mParkingSystem));
     }
-
-    private void initModel() {
-        mParkingSystem = ParkingSystem.getInstance();
-    }
-
-
 }
 

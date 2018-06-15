@@ -1,37 +1,50 @@
 package com.shrinvi.parkingapp.model;
 
+import android.content.Context;
+
+import com.shrinvi.parkingapp.data.PLABackendless;
 import com.shrinvi.parkingapp.ui.MainActivity;
+import com.shrinvi.parkingapp.utility.PLALogger;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ParkingSystem {
     public static final String LOG_TAG = "ParkingSystem:";
     private List<ParkingSpace> mFreeSpaces;
     private List<ParkingSpace> mTotalSpaces;
-    private Map<Vehicle, ParkingSpace> mParkedSpaceMap;
     private int mParkingLotCapacity;
     private static ParkingSystem sInstance;
+    private Context mContext;
 
-    private ParkingSystem(int capacity) {
+    private ParkingSystem(int capacity, Context context) {
+        mContext = context;
         mParkingLotCapacity = capacity;
-        mFreeSpaces = new ArrayList<>(mParkingLotCapacity);
-        mTotalSpaces = new ArrayList<>(mParkingLotCapacity);
-        mParkedSpaceMap = new HashMap<>(10);
-        ParkingSpace tempSpace;
-        for (int i = 0; i < mParkingLotCapacity; i++) {
-            tempSpace = new ParkingSpace(i);
-            mFreeSpaces.add(tempSpace);
-            mTotalSpaces.add(tempSpace);
-        }
+        init();
     }
 
-    public synchronized static ParkingSystem getInstance() {
+    public void init() {
+        mFreeSpaces = new ArrayList<>(mParkingLotCapacity);
+        mTotalSpaces = new ArrayList<>(mParkingLotCapacity);
+        PLABackendless.getInstance().getAllSpacesFromServer((response) -> {
+            if (response != null && response.success) {
+                PLALogger.logD("fetched all the spaces..");
+                List<ParkingSpace> datResponse = (List<ParkingSpace>) response.response;
+                for (ParkingSpace space : datResponse) {
+                    mFreeSpaces.add(space);
+                    mTotalSpaces.add(space);
+                }
+            }
+        });
+
+
+    }
+
+
+    public synchronized static ParkingSystem getInstance(Context context) {
 
         if (sInstance == null) {
-            sInstance = new ParkingSystem(MainActivity.PARKING_CAPACITY);
+            sInstance = new ParkingSystem(MainActivity.PARKING_CAPACITY, context);
         }
         return sInstance;
     }
@@ -61,29 +74,11 @@ public class ParkingSystem {
             System.out.println("Vehicle with entered regino. not found");
             return;
         }
-        //mFreeSpaces.add(space);
 
     }
 
-    public List<ParkingSpace> getFreeSpaces() {
-        return mFreeSpaces;
-    }
 
     public List<ParkingSpace> getTotalSpaces() {
         return mTotalSpaces;
-    }
-
-    public Map<Vehicle, ParkingSpace> getParkedSpaceMap() {
-        return mParkedSpaceMap;
-    }
-
-    private boolean isRegiNoValid(String regNo) {
-        return (regNo != null && !regNo.isEmpty());
-    }
-
-    public void printParkingStatus() {
-        System.out.println("total parking capacity:" + mParkingLotCapacity);
-        System.out.println("total vehicles parked now:" + mParkedSpaceMap.size());
-        System.out.println("total free space available:" + mFreeSpaces.size());
     }
 }

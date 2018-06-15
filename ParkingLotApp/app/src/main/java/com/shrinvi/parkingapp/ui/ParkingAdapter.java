@@ -12,10 +12,7 @@ import com.shrinvi.parkingapp.BR;
 import com.shrinvi.parkingapp.R;
 import com.shrinvi.parkingapp.model.ParkingSpace;
 import com.shrinvi.parkingapp.model.ParkingSystem;
-import com.shrinvi.parkingapp.model.Vehicle;
 import com.shrinvi.parkingapp.viewmodel.SpaceItemViewModel;
-
-import static com.shrinvi.parkingapp.ui.MainActivity.PARKING_CAPACITY;
 
 public class ParkingAdapter extends RecyclerView.Adapter<ParkingAdapter.ParkingSpaceHolder> {
     private ParkingSystem mParkingSystem;
@@ -42,7 +39,7 @@ public class ParkingAdapter extends RecyclerView.Adapter<ParkingAdapter.ParkingS
 
     @Override
     public void onBindViewHolder(ParkingSpaceHolder holder, int position) {
-               ViewDataBinding binding = holder.getBinding();
+        ViewDataBinding binding = holder.getBinding();
 
         final ParkingSpace space = mParkingSystem.getTotalSpaces().get(position);
         space.setCurrentPosition(position);
@@ -54,7 +51,10 @@ public class ParkingAdapter extends RecyclerView.Adapter<ParkingAdapter.ParkingS
 
     @Override
     public int getItemCount() {
-        return PARKING_CAPACITY;
+        if (mParkingSystem != null && mParkingSystem.getTotalSpaces() != null && !mParkingSystem.getTotalSpaces().isEmpty()) {
+            return mParkingSystem.getTotalSpaces().size();
+        }
+        return 0;
     }
 
     class ParkingSpaceHolder extends RecyclerView.ViewHolder {
