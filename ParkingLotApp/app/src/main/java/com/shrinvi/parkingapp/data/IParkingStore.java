@@ -1,6 +1,6 @@
 package com.shrinvi.parkingapp.data;
 
-import com.shrinvi.parkingapp.model.ParkingSpace;
+import com.shrinvi.parkingapp.model.IParkingSpace;
 import com.shrinvi.parkingapp.model.Vehicle;
 
 import java.util.List;
@@ -8,13 +8,13 @@ import java.util.List;
 public interface IParkingStore {
     void storeVehicle(Vehicle vehicle);
 
-    void storeSpace(ParkingSpace space);
+    void storeSpace(IParkingSpace space);
 
-    void storeAllSpaces(List<ParkingSpace> spaces);
+    void storeAllSpaces(List<IParkingSpace> spaces);
 
     Vehicle getVehicleByRegiNo(String regiNo);
 
-    ParkingSpace getSpaceById(String spaceId);
+    IParkingSpace getSpaceById(String spaceId);
 
-    List<ParkingSpace> getAllSpaces();
+    List<IParkingSpace> getAllSpaces();
 }

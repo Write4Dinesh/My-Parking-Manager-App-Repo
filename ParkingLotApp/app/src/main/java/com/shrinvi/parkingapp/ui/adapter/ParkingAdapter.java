@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.shrinvi.parkingapp.R;
-import com.shrinvi.parkingapp.model.ParkingSpace;
+import com.shrinvi.parkingapp.model.IParkingSpace;
 import com.shrinvi.parkingapp.model.ParkingSystem;
 import com.shrinvi.parkingapp.ui.dialog.ParkingDialog;
 
@@ -34,7 +34,7 @@ public class ParkingAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MyHolder myHolder = (MyHolder) holder;
-        final ParkingSpace space = mParkingSystem.getTotalSpaces().get(position);
+        final IParkingSpace space = mParkingSystem.getTotalSpaces().get(position);
         myHolder.mImageView.setVisibility(space.isEmpty() ? View.INVISIBLE : View.VISIBLE);
         View.OnClickListener listener = (view) -> {
             ParkingDialog dialog = new ParkingDialog();
@@ -43,10 +43,10 @@ public class ParkingAdapter extends RecyclerView.Adapter {
 
             dialog.setPositiveButton("Yes", (dialogInterface, i) -> {
                 if (space.isEmpty()) {
-                    mParkingSystem.park("234", position);
+                    mParkingSystem.blockSpace("234", position);
                     myHolder.mImageView.setVisibility(View.VISIBLE);
                 } else {
-                    mParkingSystem.unPark("234", position);
+                    mParkingSystem.releaseSpace("234", position);
                     myHolder.mImageView.setVisibility(View.INVISIBLE);
                 }
             });

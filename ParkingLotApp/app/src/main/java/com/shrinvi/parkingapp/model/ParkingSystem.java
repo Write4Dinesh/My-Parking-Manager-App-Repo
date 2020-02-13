@@ -1,55 +1,53 @@
 package com.shrinvi.parkingapp.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * This class implements the core functionality of parking system.
+ * Its the model of the core system.This class implements the core functionality of parking system.
  */
 public class ParkingSystem {
     public static final String LOG_TAG = "ParkingSystem:";
-    private List<ParkingSpace> mFreeSpaces;
-    private List<ParkingSpace> mTotalSpaces;
-    private Map<Vehicle, ParkingSpace> mParkedSpaceMap;
+    private List<IParkingSpace> mFreeSpaces;
+    private List<IParkingSpace> mTotalSpaces;
+    private Map<Vehicle, IParkingSpace> mParkedSpaceMap;
     private int mParkingLotCapacity;
 
     public ParkingSystem(int capacity) {
         mParkingLotCapacity = capacity;
-        mFreeSpaces = new ArrayList<>(mParkingLotCapacity);
-        mTotalSpaces = new ArrayList<>(mParkingLotCapacity);
+
         mParkedSpaceMap = new HashMap<>(10);
-        ParkingSpace tempSpace;
-        for (int i = 0; i < mParkingLotCapacity; i++) {
-            tempSpace = new ParkingSpace(i);
-            mFreeSpaces.add(tempSpace);
-            mTotalSpaces.add(tempSpace);
+        if (!ParkingSpaceFactory.isParkingSpaceCrated()) {
+            if (ParkingSpaceFactory.createSpaces(mParkingLotCapacity)) {
+                mTotalSpaces = ParkingSpaceFactory.getTotalSpaces();
+                mFreeSpaces = ParkingSpaceFactory.getFreeSpaces();
+            }
         }
     }
 
-    public boolean park(String regNo,int spaceIndex) {
+    public boolean blockSpace(String regNo, int spaceIndex) {
         if (!isRegiNoValid(regNo)) {
             System.out.println(LOG_TAG + "invalid regi.no");
             return false;
         }
-        ParkingSpace space = mTotalSpaces.get(spaceIndex);
+        IParkingSpace space = mTotalSpaces.get(spaceIndex);
         if (!space.isEmpty()) {
             System.out.println(LOG_TAG + "No space available");
             return false;
         }
         Vehicle vehicle = new Vehicle(regNo);
-        space.park(vehicle);
+        space.block(vehicle);
         //mParkedSpaceMap.put(vehicle, space);
         return true;
     }
 
-    public void unPark(String regiNo,int spaceIndex) {
+    public void releaseSpace(String regiNo, int spaceIndex) {
         Vehicle vehicle = new Vehicle(regiNo);
-        //ParkingSpace space = mParkedSpaceMap.remove(vehicle);
-        ParkingSpace space = mTotalSpaces.get(spaceIndex);
+        //IParkingSpace space = mParkedSpaceMap.remove(vehicle);
+        IParkingSpace space = mTotalSpaces.get(spaceIndex);
         if (space != null) {
-            space.unPark();
+            space.release();
             System.out.println("UnParked the vehicle");
         } else {
             System.out.println("Vehicle with entered regino. not found");
@@ -59,15 +57,15 @@ public class ParkingSystem {
 
     }
 
-    public List<ParkingSpace> getFreeSpaces() {
+    public List<IParkingSpace> getFreeSpaces() {
         return mFreeSpaces;
     }
 
-    public List<ParkingSpace> getTotalSpaces() {
+    public List<IParkingSpace> getTotalSpaces() {
         return mTotalSpaces;
     }
 
-    public Map<Vehicle, ParkingSpace> getParkedSpaceMap() {
+    public Map<Vehicle, IParkingSpace> getParkedSpaceMap() {
         return mParkedSpaceMap;
     }
 

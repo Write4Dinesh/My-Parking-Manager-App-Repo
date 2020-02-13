@@ -1,8 +1,7 @@
 package com.shrinvi.parkingapp.data.local;
 
-import com.shrinvi.parkingapp.data.IParkingStore;
 import com.shrinvi.parkingapp.data.ParkingStorageService;
-import com.shrinvi.parkingapp.model.ParkingSpace;
+import com.shrinvi.parkingapp.model.IParkingSpace;
 import com.shrinvi.parkingapp.model.Vehicle;
 
 import java.util.List;
@@ -15,12 +14,12 @@ public class LocalParkingStorageService extends ParkingStorageService {
     }
 
     @Override
-    public void storeSpace(ParkingSpace space) {
+    public void storeSpace(IParkingSpace space) {
 
     }
 
     @Override
-    public void storeAllSpaces(List<ParkingSpace> spaces) {
+    public void storeAllSpaces(List<IParkingSpace> spaces) {
 
     }
 
@@ -30,12 +29,12 @@ public class LocalParkingStorageService extends ParkingStorageService {
     }
 
     @Override
-    public ParkingSpace getSpaceById(String spaceId) {
+    public IParkingSpace getSpaceById(String spaceId) {
         return null;
     }
 
     @Override
-    public List<ParkingSpace> getAllSpaces() {
+    public List<IParkingSpace> getAllSpaces() {
         return null;
     }
 }
