@@ -13,8 +13,6 @@ import com.shrinvi.parkingapp.model.IParkingSpace;
 import com.shrinvi.parkingapp.model.ParkingSystem;
 import com.shrinvi.parkingapp.ui.dialog.ParkingDialog;
 
-import static com.shrinvi.parkingapp.ui.activity.HomeActivity.PARKING_CAPACITY;
-
 public class ParkingAdapter extends RecyclerView.Adapter {
     private ParkingSystem mParkingSystem;
     private Context mContext;
@@ -59,7 +57,7 @@ public class ParkingAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return PARKING_CAPACITY;
+        return mParkingSystem.getTotalSpaces().size();
     }
 
     class MyHolder extends RecyclerView.ViewHolder {

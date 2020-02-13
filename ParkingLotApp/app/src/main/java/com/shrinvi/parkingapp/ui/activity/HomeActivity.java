@@ -10,7 +10,6 @@ import com.shrinvi.parkingapp.ui.adapter.ParkingAdapter;
 
 
 public class HomeActivity extends BaseActivity {
-    public static final int PARKING_CAPACITY = 100;
     public static final int COLUMN_COUNT = 5;
     private ParkingSystem mParkingSystem;
     private RecyclerView mRecyclerView;
@@ -19,7 +18,7 @@ public class HomeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initModel();
+        initializeParkingSystem();
         initView();
     }
 
@@ -29,8 +28,8 @@ public class HomeActivity extends BaseActivity {
         mRecyclerView.setAdapter(new ParkingAdapter(this, mParkingSystem));
     }
 
-    private void initModel() {
-        mParkingSystem = ParkingSystem.getInstance(PARKING_CAPACITY);
+    private void initializeParkingSystem() {
+        mParkingSystem = ParkingSystem.getInstance(20);
     }
 
 
