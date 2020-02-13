@@ -1,6 +1,7 @@
 package com.shrinvi.parkingapp.ui.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -44,9 +45,11 @@ public class ParkingAdapter extends RecyclerView.Adapter {
             dialog.setPositiveButton("Yes", (dialogInterface, i) -> {
                 if (space.isEmpty()) {
                     mParkingSystem.blockSpace("234", position);
+                    myHolder.mCellView.setBackgroundColor(Color.parseColor("#FFFF00"));
                     myHolder.mImageView.setVisibility(View.VISIBLE);
                 } else {
                     mParkingSystem.releaseSpace("234", position);
+                    myHolder.mCellView.setBackgroundColor(Color.parseColor("#ffffff"));
                     myHolder.mImageView.setVisibility(View.INVISIBLE);
                 }
             });
@@ -63,11 +66,14 @@ public class ParkingAdapter extends RecyclerView.Adapter {
     }
 
     class MyHolder extends RecyclerView.ViewHolder {
-        public ImageView mImageView;
-        public TextView mIndexTv;
+        ImageView mImageView;
+        TextView mIndexTv;
+        View mCellView;
+
 
         public MyHolder(View view) {
             super(view);
+            mCellView = view;
             mImageView = view.findViewById(R.id.image_view);
             mIndexTv = view.findViewById(R.id.indexTv);
         }
