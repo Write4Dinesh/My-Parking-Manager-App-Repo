@@ -1,7 +1,6 @@
 package com.shrinvi.parkingapp.ui.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -31,7 +30,7 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void initModel() {
-        mParkingSystem = new ParkingSystem(PARKING_CAPACITY);
+        mParkingSystem = ParkingSystem.getInstance(PARKING_CAPACITY);
     }
 
 

@@ -6,6 +6,7 @@ import java.util.Map;
 
 /**
  * Its the model of the core system.This class implements the core functionality of parking system.
+ * It's a pure java code & no android framework code is mixed. so, it can be run on any java platform
  */
 public class ParkingSystem {
     public static final String LOG_TAG = "ParkingSystem:";
@@ -13,8 +14,9 @@ public class ParkingSystem {
     private List<IParkingSpace> mTotalSpaces;
     private Map<Vehicle, IParkingSpace> mParkedSpaceMap;
     private int mParkingLotCapacity;
+    private static ParkingSystem sInstance;
 
-    public ParkingSystem(int capacity) {
+    private ParkingSystem(int capacity) {
         mParkingLotCapacity = capacity;
 
         mParkedSpaceMap = new HashMap<>(10);
@@ -24,6 +26,13 @@ public class ParkingSystem {
                 mFreeSpaces = ParkingSpaceFactory.getFreeSpaces();
             }
         }
+    }
+
+    public synchronized static ParkingSystem getInstance(int capacity) {
+        if (sInstance == null) {
+            sInstance = new ParkingSystem(capacity);
+        }
+        return sInstance;
     }
 
     public boolean blockSpace(String regNo, int spaceIndex) {
