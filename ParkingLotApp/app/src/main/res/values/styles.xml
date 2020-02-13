@@ -13,5 +13,17 @@
         <item name="android:textSize">48sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+    <style name="splash_sub_text" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/avenirltstd_medium</item>
+        <item name="android:textSize">@dimen/_18sp</item>
+        <item name="android:alpha">100</item>
+    </style>
+    <style name="splash_app_name" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/avenirltstd_book</item>
+        <item name="android:textSize">@dimen/_32sp</item>
+        <item name="android:alpha">100</item>
+    </style>
 
 </resources>

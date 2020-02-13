@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class implements the core functionality of parking system.
+ */
 public class ParkingSystem {
     public static final String LOG_TAG = "ParkingSystem:";
     private List<ParkingSpace> mFreeSpaces;

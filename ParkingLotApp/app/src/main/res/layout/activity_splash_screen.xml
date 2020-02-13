@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#460073">
+
+    <TextView
+        android:id="@+id/text_habitual"
+        style="@style/splash_app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_centerHorizontal="true"
+        android:letterSpacing="0.15"
+        android:text="@string/app_name" />
+
+    <TextView
+        android:id="@+id/text_accenture"
+        style="@style/splash_sub_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/image_accenture_logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:letterSpacing="0.10"
+        android:text="@string/splash_acc_interactive" />
+
+    <ImageView
+        android:id="@+id/image_accenture_logo"
+        android:layout_width="29dp"
+        android:layout_height="29dp"
+        android:src="@drawable/parking"
+        android:layout_marginBottom="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

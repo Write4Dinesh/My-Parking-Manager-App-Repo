@@ -10,7 +10,7 @@ import com.shrinvi.parkingapp.model.ParkingSystem;
 import com.shrinvi.parkingapp.ui.adapter.ParkingAdapter;
 
 
-public class MainActivity extends AppCompatActivity {
+public class HomeActivity extends BaseActivity {
     public static final int PARKING_CAPACITY = 100;
     public static final int COLUMN_COUNT = 5;
     private ParkingSystem mParkingSystem;

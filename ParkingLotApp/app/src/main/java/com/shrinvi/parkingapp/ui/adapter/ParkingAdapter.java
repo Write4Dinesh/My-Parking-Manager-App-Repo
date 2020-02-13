@@ -13,7 +13,7 @@ import com.shrinvi.parkingapp.model.ParkingSpace;
 import com.shrinvi.parkingapp.model.ParkingSystem;
 import com.shrinvi.parkingapp.ui.dialog.ParkingDialog;
 
-import static com.shrinvi.parkingapp.ui.activity.MainActivity.PARKING_CAPACITY;
+import static com.shrinvi.parkingapp.ui.activity.HomeActivity.PARKING_CAPACITY;
 
 public class ParkingAdapter extends RecyclerView.Adapter {
     private ParkingSystem mParkingSystem;
