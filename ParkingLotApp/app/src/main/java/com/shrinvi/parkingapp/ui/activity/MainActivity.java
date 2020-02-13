@@ -1,4 +1,4 @@
-package com.shrinvi.parkingapp.ui;
+package com.shrinvi.parkingapp.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.shrinvi.parkingapp.R;
 import com.shrinvi.parkingapp.model.ParkingSystem;
+import com.shrinvi.parkingapp.ui.adapter.ParkingAdapter;
 
 
 public class MainActivity extends AppCompatActivity {

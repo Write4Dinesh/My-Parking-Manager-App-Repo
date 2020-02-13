@@ -1,6 +1,7 @@
-package com.shrinvi.parkingapp.ui;
+package com.shrinvi.parkingapp.ui.adapter;
 
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,14 +11,15 @@ import android.widget.ImageView;
 import com.shrinvi.parkingapp.R;
 import com.shrinvi.parkingapp.model.ParkingSpace;
 import com.shrinvi.parkingapp.model.ParkingSystem;
+import com.shrinvi.parkingapp.ui.dialog.ParkingDialog;
 
-import static com.shrinvi.parkingapp.ui.MainActivity.PARKING_CAPACITY;
+import static com.shrinvi.parkingapp.ui.activity.MainActivity.PARKING_CAPACITY;
 
 public class ParkingAdapter extends RecyclerView.Adapter {
     private ParkingSystem mParkingSystem;
     private Context mContext;
 
-    public  ParkingAdapter(Context context, ParkingSystem parkingSystem) {
+    public ParkingAdapter(Context context, ParkingSystem parkingSystem) {
         mParkingSystem = parkingSystem;
         mContext = context;
     }
@@ -35,15 +37,22 @@ public class ParkingAdapter extends RecyclerView.Adapter {
         final ParkingSpace space = mParkingSystem.getTotalSpaces().get(position);
         myHolder.mImageView.setVisibility(space.isEmpty() ? View.INVISIBLE : View.VISIBLE);
         View.OnClickListener listener = (view) -> {
-            if (space.isEmpty()) {
-                mParkingSystem.park("234", position);
-                myHolder.mImageView.setVisibility(View.VISIBLE);
-            } else {
-                mParkingSystem.unPark("234", position);
-                myHolder.mImageView.setVisibility(View.INVISIBLE);
-            }
+            ParkingDialog dialog = new ParkingDialog();
+            dialog.setMessage(space.isEmpty() ? mContext.getString(R.string.park) : mContext.getString(R.string.un_park));
+            dialog.setNegativeButton("Cancel", (dialogInterface, i) -> dialog.dismiss());
 
+            dialog.setPositiveButton("Yes", (dialogInterface, i) -> {
+                if (space.isEmpty()) {
+                    mParkingSystem.park("234", position);
+                    myHolder.mImageView.setVisibility(View.VISIBLE);
+                } else {
+                    mParkingSystem.unPark("234", position);
+                    myHolder.mImageView.setVisibility(View.INVISIBLE);
+                }
+            });
+            dialog.show(((AppCompatActivity) mContext).getSupportFragmentManager(), "");
         };
+
         myHolder.itemView.setOnClickListener(listener);
         myHolder.mImageView.setOnClickListener(listener);
     }

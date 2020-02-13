@@ -7,5 +7,7 @@
     <string name="game_end_dialog_headline">The winner is</string>
     <string name="empty">Empty</string>
     <string name="parked">Parked</string>
+    <string name="un_park">Do you want to RELEASE this space?</string>
+    <string name="park">Do you want to BLOCK this space?</string>
 
 </resources>
