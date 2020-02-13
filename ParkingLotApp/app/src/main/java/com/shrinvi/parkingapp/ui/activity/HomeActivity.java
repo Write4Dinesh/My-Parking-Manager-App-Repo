@@ -29,7 +29,7 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void initializeParkingSystem() {
-        mParkingSystem = ParkingSystem.getInstance(20);
+        mParkingSystem = ParkingSystem.getInstance(100);
     }
 
 

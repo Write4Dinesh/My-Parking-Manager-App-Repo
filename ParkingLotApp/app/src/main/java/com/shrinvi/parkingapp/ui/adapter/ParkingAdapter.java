@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.shrinvi.parkingapp.R;
 import com.shrinvi.parkingapp.model.IParkingSpace;
@@ -33,6 +34,7 @@ public class ParkingAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MyHolder myHolder = (MyHolder) holder;
         final IParkingSpace space = mParkingSystem.getTotalSpaces().get(position);
+        myHolder.mIndexTv.setText(space.getId());
         myHolder.mImageView.setVisibility(space.isEmpty() ? View.INVISIBLE : View.VISIBLE);
         View.OnClickListener listener = (view) -> {
             ParkingDialog dialog = new ParkingDialog();
@@ -62,10 +64,12 @@ public class ParkingAdapter extends RecyclerView.Adapter {
 
     class MyHolder extends RecyclerView.ViewHolder {
         public ImageView mImageView;
+        public TextView mIndexTv;
 
         public MyHolder(View view) {
             super(view);
             mImageView = view.findViewById(R.id.image_view);
+            mIndexTv = view.findViewById(R.id.indexTv);
         }
     }
 }

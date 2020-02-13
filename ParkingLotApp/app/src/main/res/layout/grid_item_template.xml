@@ -2,14 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/un_parked"
     android:layout_margin="5dp"
+    android:background="@drawable/un_parked"
     android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/image_view"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="center"
-        android:src="@drawable/parked" />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="center"
+            android:src="@drawable/parked" />
+
+        <TextView
+            android:id="@+id/indexTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="top|left"
+            android:text="x,y"
+            android:textSize="12sp" />
+
+
+    </FrameLayout>
+
 </LinearLayout>

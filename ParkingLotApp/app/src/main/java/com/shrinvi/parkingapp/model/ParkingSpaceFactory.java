@@ -1,5 +1,7 @@
 package com.shrinvi.parkingapp.model;
 
+import com.shrinvi.parkingapp.ui.activity.HomeActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +19,13 @@ public class ParkingSpaceFactory {
             return false;
         }
         ParkingSpace tempSpace;
-        for (int i = 0; i < count; i++) {
-            tempSpace = new ParkingSpace(i);
-            mFreeSpaces.add(tempSpace);
-            mTotalSpaces.add(tempSpace);
+        int rows = count / HomeActivity.COLUMN_COUNT;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < HomeActivity.COLUMN_COUNT; j++) {
+                tempSpace = new ParkingSpace(i + "x" + j);
+                mFreeSpaces.add(tempSpace);
+                mTotalSpaces.add(tempSpace);
+            }
         }
         parkingSpaceCrated = true;
         return true;
@@ -40,10 +45,10 @@ public class ParkingSpaceFactory {
 }
 
 class ParkingSpace implements IParkingSpace {
-    private int mId;
+    private String mId;
     private Vehicle mVehicle;
 
-    ParkingSpace(int id) {
+    ParkingSpace(String id) {
         mId = id;
         mVehicle = null;
     }
@@ -85,11 +90,11 @@ class ParkingSpace implements IParkingSpace {
 
     @Override
     public int hashCode() {
-        return mId;
+        return Integer.parseInt(mId);
     }
 
     @Override
-    public int getId() {
+    public String getId() {
         return mId;
     }
 

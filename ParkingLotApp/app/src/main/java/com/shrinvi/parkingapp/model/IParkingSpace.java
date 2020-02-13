@@ -9,7 +9,7 @@ public interface IParkingSpace {
 
     Vehicle getVehicle();
 
-    int getId();
+    String getId();
 
 
 }
